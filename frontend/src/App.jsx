@@ -24,6 +24,7 @@ function App() {
         .then(response => {
           setTasks([...tasks, response.data]);
           setTitle('');
+          setDesc('')
         })
         .catch(error => {
           console.error('Error adding task:', error);
