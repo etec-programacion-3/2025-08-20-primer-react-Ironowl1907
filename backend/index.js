@@ -36,9 +36,9 @@ async function startServer() {
   await sequelize.sync({ force: true });
   console.log('Database & tables created!');
   // Add some initial data
-  await Task.create({ title: 'Learn React' });
-  await Task.create({ title: 'Build a backend' });
-  await Task.create({ title: 'Connect frontend to backend' });
+  await Task.create({ title: 'Learn React', description: "Description1" });
+  await Task.create({ title: 'Build a backend', description: "Description2" });
+  await Task.create({ title: 'Connect frontend to backend', description: "Description3" });
 
   const PORT = process.env.PORT || 3001;
   app.listen(PORT, () => {
@@ -57,9 +57,9 @@ app.get('/tasks', async (req, res) => {
 
 
 app.post('/tasks', async (req, res) => {
-  const { title } = req.body;
-  if (title) {
-    const task = await Task.create({ title });
+  const { title, description } = req.body;
+  if (title && description) {
+    const task = await Task.create({ title, description });
     res.status(201).json(task);
   } else {
     res.status(400).json({ error: 'Title is required' });

@@ -5,6 +5,7 @@ import './App.css';
 function App() {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState('');
+  const [description, setDesc] = useState('');
 
   useEffect(() => {
     axios.get('http://localhost:3001/tasks')
@@ -19,7 +20,7 @@ function App() {
   const handleAddTask = (e) => {
     e.preventDefault();
     if (title.trim()) {
-      axios.post('http://localhost:3001/tasks', { title })
+      axios.post('http://localhost:3001/tasks', { title, description })
         .then(response => {
           setTasks([...tasks, response.data]);
           setTitle('');
@@ -41,11 +42,18 @@ function App() {
             onChange={(e) => setTitle(e.target.value)}
             placeholder="New task title"
           />
+
+          <input
+            type="text"
+            value={description}
+            onChange={(e) => setDesc(e.target.value)}
+            placeholder="Add a Description"
+          />
           <button type="submit">Add Task</button>
         </form>
         <ul>
           {tasks.map(task => (
-            <li key={task.id}>{task.title}</li>
+            <li key={task.id}>{task.title} - {task.description}</li>
           ))}
         </ul>
       </header>
