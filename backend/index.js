@@ -24,6 +24,10 @@ const Task = sequelize.define('Task', {
   completed: {
     type: DataTypes.BOOLEAN,
     defaultValue: false
+  },
+  description: {
+    type: DataTypes.TEXT,
+    defaultValue: true,
   }
 });
 
